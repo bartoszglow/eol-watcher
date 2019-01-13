@@ -23,9 +23,14 @@
         </button>
       </router-link>
 
-      <button class="btn btn-default btn-dropdown pull-right">
-        <span class="icon icon-megaphone"></span>
-      </button>
+      <div class="pull-right">
+        <button class="btn btn-default">
+          <span class="icon icon-up-open-mini"></span>
+        </button>
+        <button class="btn btn-default">
+          <span class="icon icon-cancel"></span>
+        </button>
+      </div>
     </div>
   </header>
 </template>
