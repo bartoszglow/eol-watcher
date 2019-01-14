@@ -1,7 +1,7 @@
 <template>
   <div class="list-group">
     <li class="list-group-item" v-for="battle in $store.state.battles.all">
-      <img class="img-circle media-object pull-left" :src="`http://elmaonline.net/images/map/${battle.level}`">
+      <img class="img-circle media-object pull-left" :src="isInQueue(battle) ? 'assets/queue.png' : `http://elmaonline.net/images/map/${battle.level}`">
       <div class="media-body">
         <h2 class="battle-title"><strong>{{battle.levelname}}</strong> <small><i>by</i></small> <strong>{{battle.kuski}}</strong></h2>
         <p class="battle-description"><i>time:</i> <strong>{{battle.duration}} minutes</strong></p>
@@ -19,13 +19,13 @@
     name: 'queue',
     methods: {
       isInQueue: function(battle) {
-        return battle.inqueue === 1;
+        return battle.inqueue === 1
       },
       isInProgress: function(battle) {
-        return battle.inqueue === 0 && battle.finished === 0;
+        return battle.inqueue === 0 && battle.finished === 0
       },
       isFinished: function(battle) {
-        return battle.finished === 1;
+        return battle.finished === 1
       }
     }
   }
