@@ -18,7 +18,7 @@ const router = new VueRouter({
 
 setInterval(() => {
   store.dispatch('battles/getAllBattles')
-}, 2000);
+}, 2000)
 
 const app = new Vue({
   el: '#app',

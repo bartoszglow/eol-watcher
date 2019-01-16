@@ -1,4 +1,5 @@
-const {app, BrowserWindow, Tray} = require('electron')
+const { app, BrowserWindow, Notification, Tray, ipcMain } = require('electron')
+const moment = require('moment')
 const path = require('path')
 
 if (process.env.NODE_ENV === 'development') {
@@ -12,9 +13,16 @@ const assetsDirectory = path.join(__dirname, 'assets')
 let tray = undefined
 let mainWindow = undefined
 
+// Set app user model id to enable notifications on win
+app.setAppUserModelId('org.develar.ElectronReact')
+
+// Don't show the app in the doc
+app.dock && app.dock.hide()
+
 app.on('ready', function () {
   createTray()
   createWindow()
+  initializeNotifications()
 })
 
 app.on('window-all-closed', function () {
@@ -86,6 +94,24 @@ const createTray = () => {
   })
 }
 
+const initializeNotifications = () => {
+  ipcMain.on('battle', (event, battle) => {
+    if(battle.inqueue) {
+      const battleNotification = new Notification({
+        title: `Queue by ${battle.kuski}`,
+        body: `${battle.duration} minutes battle`
+      }).show()
+    }
+
+    if(battle.inqueue === 0 && battle.finished === 0 ) {
+      const battleNotification = new Notification({
+        title: `${battle.levelname} by ${battle.kuski}`,
+        body: `${battle.duration} minutes battle started at ${moment(new Date((battle.started - 36000) * 1000)).format('MMM Do YY, H:mm:ss')}`
+      }).show()
+    }
+  })
+}
+
 const toggleWindow = () => {
   if (mainWindow.isVisible()) {
     mainWindow.hide()
@@ -109,7 +135,7 @@ const getWindowPosition = () => {
   const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
 
   // Position window 4 pixels vertically below the tray icon
-  const y = Math.round(trayBounds.y + trayBounds.height + 4)
+  const y = Math.round(trayBounds.y + (process.platform === "win32" ? -trayBounds.height - 4: trayBounds.height + 4))
 
   return { x, y }
 }
