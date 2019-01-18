@@ -24,10 +24,10 @@
       </router-link>
 
       <div class="pull-right">
-        <button class="btn btn-default">
+        <button class="btn btn-default" @click="hideTray">
           <span class="icon icon-up-open-mini"></span>
         </button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" @click="closeApp">
           <span class="icon icon-cancel"></span>
         </button>
       </div>
@@ -36,8 +36,18 @@
 </template>
 
 <script>
+  const remote = require('electron').remote
+
   export default {
-    name: 'header'
+    name: 'header',
+    methods: {
+      closeApp: function() {
+        remote.getCurrentWindow().close()
+      },
+      hideTray: function() {
+        remote.getCurrentWindow().hide()
+      }
+    }
   }
 </script>
 
