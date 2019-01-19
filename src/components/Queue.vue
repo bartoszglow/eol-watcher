@@ -39,10 +39,12 @@
     font-size: 14px;
   }
   .media-body {
-    float: left;
     padding-left: 5px;
   }
   .status-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
     margin-top: 0;
     line-height: 66px;
   }

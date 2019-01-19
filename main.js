@@ -131,7 +131,7 @@ const getWindowPosition = () => {
   const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
 
   // Position window 4 pixels vertically below the tray icon
-  const y = Math.round(trayBounds.y + (process.platform === "win32" ? -trayBounds.height - 4: trayBounds.height + 4))
+  const y = Math.round(trayBounds.y + (process.platform === "win32" ? - trayBounds.height - 4: trayBounds.height + 4))
 
   return { x, y }
 }
