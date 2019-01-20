@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Notification, Tray, ipcMain } = require('electron')
 const moment = require('moment')
 const path = require('path')
+const notifier = require('node-notifier')
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-reload')(__dirname, {
@@ -12,6 +13,7 @@ const assetsDirectory = path.join(__dirname, 'assets')
 
 let tray = undefined
 let mainWindow = undefined
+let initialized = false
 
 // Set app user model id to enable notifications on win
 app.setAppUserModelId('org.develar.ElectronReact')
@@ -23,18 +25,12 @@ app.on('ready', function () {
   createTray()
   createWindow()
   initializeNotifications()
+  showWindow()
+  initialized = true
 })
 
 app.on('window-all-closed', function () {
   app.quit()
-})
-
-app.on('activate', function () {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
 })
 
 const createWindow = () => {
@@ -118,7 +114,9 @@ const toggleWindow = () => {
 
 const showWindow = () => {
   const position = getWindowPosition()
-  mainWindow.setPosition(position.x, position.y, false)
+  if(!initialized) {
+    mainWindow.setPosition(position.x, position.y, false)
+  }
   mainWindow.show()
   mainWindow.focus()
 }
@@ -131,7 +129,7 @@ const getWindowPosition = () => {
   const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
 
   // Position window 4 pixels vertically below the tray icon
-  const y = Math.round(trayBounds.y + (process.platform === "win32" ? - trayBounds.height - 4: trayBounds.height + 4))
+  const y = Math.round(trayBounds.y + (process.platform === "win32" ? windowBounds.width - 900 : trayBounds.height + 4))
 
   return { x, y }
 }
