@@ -93,6 +93,11 @@ const initializeNotifications = () => {
         title: `Queue by ${battle.kuski}`,
         body: `${battle.duration} minutes battle`
       }).show()
+
+      notifier.notify({
+        title: `Queue by ${battle.kuski}`,
+        message: `${battle.duration} minutes battle`
+      })
     }
 
     if(battle.inqueue === 0 && battle.finished === 0 ) {
@@ -100,6 +105,11 @@ const initializeNotifications = () => {
         title: `${battle.levelname} by ${battle.kuski}`,
         body: `${battle.duration} minutes battle started at ${moment(new Date((battle.started - 36000) * 1000)).format('MMM Do YY, H:mm:ss')}`
       }).show()
+
+      notifier.notify({
+        title: `${battle.levelname} by ${battle.kuski}`,
+        message: `${battle.duration} minutes battle started at ${moment(new Date((battle.started - 36000) * 1000)).format('MMM Do YY, H:mm:ss')}`
+      })
     }
   })
 }
