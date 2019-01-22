@@ -45,7 +45,8 @@ const createWindow = () => {
     webPreferences: {
       // Prevents renderer process code from not running when window is hidden
       backgroundThrottling: false
-    }
+    },
+    icon: path.join(assetsDirectory, 'app.ico')
   })
 
   // and load the index.html of the app.
