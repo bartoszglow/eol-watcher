@@ -25,7 +25,7 @@
 
       <div class="pull-right">
         <button class="btn btn-default" @click="hideTray">
-          <span class="icon icon-up-open-mini"></span>
+          <span class="icon icon-minus"></span>
         </button>
         <button class="btn btn-default" @click="closeApp">
           <span class="icon icon-cancel"></span>
