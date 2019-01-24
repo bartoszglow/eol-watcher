@@ -1,5 +1,5 @@
 <template>
-  <header class="toolbar toolbar-header">
+  <header class="toolbar toolbar-header" style="-webkit-app-region: drag">
     <h1 class="title">Eol Watcher</h1>
 
     <div class="toolbar-actions">
