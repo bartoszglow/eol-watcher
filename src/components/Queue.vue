@@ -52,7 +52,11 @@
           const secondsGap = 23
           const timezoneDiff = (new Date()).getTimezoneOffset() * 60
           const dateDiff = moment().diff(moment(new Date((battle.started - serverToUTC + timezoneDiff - secondsGap) * 1000)))
-          this.remainingTime = moment.utc(Math.round(battle.duration * 60 - dateDiff / 1000) * 1000).format('mm:ss')
+          const remainingSeconds = Math.round(battle.duration * 60 - dateDiff / 1000);
+          this.remainingTime = moment.utc(remainingSeconds * 1000).format('mm:ss')
+          if(remainingSeconds <= 0) {
+            this.$store.dispatch('battles/getAllBattles');
+          }
         }
       }
     },
