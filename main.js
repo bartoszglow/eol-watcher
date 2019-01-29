@@ -1,3 +1,9 @@
+const setupEvents = require('./setupEvents')
+if (setupEvents.handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  return
+}
+
 const { app, BrowserWindow, Notification, Tray, ipcMain } = require('electron')
 const moment = require('moment')
 const path = require('path')

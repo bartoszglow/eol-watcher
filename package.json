@@ -2,7 +2,7 @@
   "name": "eol-watcher",
   "version": "1.0.0",
   "description": "EOL watcher application. Allows to see elmaonline battle list and notifies when new battle is started.",
-  "author": "Bartosz Glowacki (joinee)",
+  "author": "Bartosz Glowacki (joinee / Stooq)",
   "license": "MIT",
   "private": true,
   "main": "main.js",
@@ -12,11 +12,12 @@
     "build": "cross-env NODE_ENV=production webpack --mode production --progress --profile --colors",
     "start": "cross-env NODE_ENV=production electron ./",
     "package": "npm run package-osx; npm run package-win; npm run package-linux;",
-    "package-osx": "electron-packager ./ --platform=darwin --arch=x64 --icon=assets/app.icns --out=package --asar --overwrite",
-    "package-win": "electron-packager ./ --platform=win32 --arch=ia32 --icon=assets/app.ico --out=package --asar --overwrite",
-    "package-linux": "electron-packager ./ --platform=linux --arch=ia32 --icon=assets/app.ico --out=package --asar --overwrite",
+    "package-osx": "electron-packager ./ --platform=darwin --arch=x64 --icon=assets/app.icns --out=../eol-watcher-package --asar --overwrite",
+    "package-win": "electron-packager ./ --platform=win32 --arch=ia32 --icon=assets/app.ico --out=../eol-watcher-package --asar --overwrite",
+    "package-linux": "electron-packager ./ --platform=linux --arch=ia32 --icon=assets/app.ico --out=../eol-watcher-package --asar --overwrite",
     "installer": "npm run installer-osx; npm run installer-win",
-    "installer-osx": "electron-installer-dmg ./package/eol-watcher-darwin-x64/eol-watcher.app eol-watcher --icon=assets/app.icns --out=installer --overwrite"
+    "installer-osx": "electron-installer-dmg ../eol-watcher-package/eol-watcher-darwin-x64/eol-watcher.app eol-watcher --icon=assets/app.icns --out=../eol-watcher-installer/macos --overwrite",
+    "installer-win": "node createWindowsInstaller.js"
   },
   "dependencies": {
     "electron": "^1.8.4",
@@ -36,6 +37,7 @@
     "electron-installer-dmg": "^2.0.0",
     "electron-packager": "^11.0.1",
     "electron-reload": "^1.2.2",
+    "electron-winstaller": "^2.7.0",
     "file-loader": "^1.1.9",
     "vue-loader": "^14.1.1",
     "vue-template-compiler": "^2.5.13",
